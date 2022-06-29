@@ -17,16 +17,16 @@ function SceneManager(canvas) {
   const DPR = 2;
 
   const camParams = {
-    default: [100, 100, 300],
+    default: [100, 200, 300],
     range: [200, 200],
-    lookat: [50, 0, 100],
+    lookat: [10, 0, 100],
   };
 
-  const terrainDimensions = [420, 250];
+  const terrainDimensions = [330, 250];
 
   const scene = buildScene();
   const bufferScene = buildScene();
-  bufferScene.background = new THREE.Color('#000');
+  bufferScene.background = new THREE.Color('#add8e6');
   const renderer = buildRender(screenDimensions);
   const camera = buildCamera(screenDimensions);
   const sceneSubjects = createSceneSubjects(scene, camera);
@@ -66,9 +66,9 @@ function SceneManager(canvas) {
 
   function buildCamera({width, height}) {
     const aspectRatio = width / height;
-    const fieldOfView = 35;
-    const nearPlane = 0.3;
-    const farPlane = 400;
+    const fieldOfView = 100;
+    const nearPlane = 0.1;
+    const farPlane = 500;
     const camera = new THREE.PerspectiveCamera(
         fieldOfView,
         aspectRatio,
@@ -76,7 +76,7 @@ function SceneManager(canvas) {
         farPlane);
 
 
-    camera.position.set(camParams.default[0], camParams.default[1], camParams.default[2]);
+    camera.position.set(camParams.default[0], camParams.default[0], camParams.default[2]);
     camera.lookAt(new THREE.Vector3(camParams.lookat[0], camParams.lookat[1], camParams.lookat[2]));
 
     return camera;
@@ -185,8 +185,8 @@ function SceneManager(canvas) {
   this.onDocumentMouseMove = function( event ) {
     const {width, height} = canvas;
 
-    mouseX = camParams.default[0] - camParams.range[0] / 2 + (event.clientX / width * camParams.range[0]);
-    mouseY = camParams.default[1] + camParams.range[1] / 2 - (event.clientY / height * camParams.range[1]);
+    //mouseX = camParams.default[0] - camParams.range[0] / 2 + (event.clientX / width * camParams.range[0]);
+    //mouseY = camParams.default[1] + camParams.range[1] / 2 - (event.clientY / height * camParams.range[1]);
   };
 };
 

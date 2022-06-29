@@ -4,9 +4,12 @@
   "main": "index.js",
   "author": "Clay Tercek",
   "license": "MIT",
+  "homepage": "https://thescorpoi.github.io/icg-beach",
   "scripts": {
     "build": "rollup --config",
-    "dev": "rollup -mw --config"
+    "dev": "rollup -mw --config",
+    "predeploy": "yarn run build",
+    "deploy": "gh-pages -d build"
   },
   "dependencies": {
     "simplex-noise": "^2.4.0",
@@ -20,6 +23,7 @@
     "@rollup/plugin-typescript": "^4.1.1",
     "eslint": "^7.0.0",
     "eslint-config-google": "^0.14.0",
+    "gh-pages": "^4.0.0",
     "rollup": "^2.10.2",
     "rollup-plugin-babel": "^4.4.0",
     "rollup-plugin-copy": "^3.3.0",

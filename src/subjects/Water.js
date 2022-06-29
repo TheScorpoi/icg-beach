@@ -37,7 +37,7 @@ function Water(scene, camera, terrainDimensions, screenDimensions) {
   this.update = function(deltaTime, colorTarget, depthTarget) {
     material.uniforms.tDepth.value = depthTarget.texture;
     material.uniforms.tEnv.value = colorTarget.texture;
-    material.uniforms.uTime.value += deltaTime;
+    material.uniforms.uTime.value += deltaTime + 0.004;
   };
 
   this.onResize = function(screenDimensions) {
