@@ -4,12 +4,12 @@
   "main": "index.js",
   "author": "Clay Tercek",
   "license": "MIT",
-  "homepage": "https://thescorpoi.github.io/icg-beach",
+  "homepage": "https://thescorpoi.github.io/icg-beach/",
   "scripts": {
     "build": "rollup --config",
     "dev": "rollup -mw --config",
     "predeploy": "yarn run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "simplex-noise": "^2.4.0",
