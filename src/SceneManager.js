@@ -1,11 +1,11 @@
 import * as THREE from 'three';
-// import GeneralLights from './subjects/GeneralLights';
-// import Rock from './subjects/Rock';
-import Terrain from './src/objects/sand';
-// import Water from './subjects/Water';
-// import Fish from './subjects/Fish';
+import GeneralLights from './subjects/GeneralLights';
+import Rock from './subjects/Rock';
+import Terrain from './subjects/Terrain';
+import Water from './subjects/Water';
+import Fish from './subjects/Fish';
 
-function Helper(canvas) {
+function SceneManager(canvas) {
   const clock = new THREE.Clock();
 
   const screenDimensions = {
@@ -13,17 +13,16 @@ function Helper(canvas) {
     height: canvas.height,
   };
 
-  const DPR = (window.devicePixelRatio) ? Math.min(window.
-      devicePixelRatio, 2) : 1;
-  // const DPR = 1;
+  //const DPR = (window.devicePixelRatio) ? Math.min(window.devicePixelRatio, 2) : 1;
+  const DPR = 2;
 
   const camParams = {
-    default: [100, 100, 100],
-    range: [60, 60],
-    lookat: [20, -2, 15],
+    default: [100, 100, 300],
+    range: [200, 200],
+    lookat: [50, 0, 100],
   };
 
-  const terrainDimensions = [320, 250];
+  const terrainDimensions = [420, 250];
 
   const scene = buildScene();
   const bufferScene = buildScene();
@@ -34,7 +33,7 @@ function Helper(canvas) {
   const {colorTarget, depthTarget} = createTargets();
 
   let mouseX = camParams.default[0];
-  let mouseY = camParams.default[1];
+  let mouseY = camParams.default[0];
 
   const materialDepth = new THREE.MeshDepthMaterial({morphTargets: true});
   materialDepth.depthPacking = THREE.RGBADepthPacking;
@@ -43,8 +42,6 @@ function Helper(canvas) {
 
   function buildScene() {
     const scene = new THREE.Scene();
-    // scene.background = new THREE.Color('#000');
-
     return scene;
   }
 
@@ -55,7 +52,6 @@ function Helper(canvas) {
       alpha: true,
       depth: true,
       stencil: false,
-      // precision: 'mediump',
     });
 
     renderer.setPixelRatio(DPR);
@@ -80,25 +76,23 @@ function Helper(canvas) {
         farPlane);
 
 
-    camera.position.set(camParams.default[0], camParams.default[1], camParams
-        .default[2]);
-    camera.lookAt(new THREE.Vector3(camParams.lookat[0], camParams.lookat[1],
-        camParams.lookat[2]));
+    camera.position.set(camParams.default[0], camParams.default[1], camParams.default[2]);
+    camera.lookAt(new THREE.Vector3(camParams.lookat[0], camParams.lookat[1], camParams.lookat[2]));
 
     return camera;
   }
 
   function createSceneSubjects(scene, camera) {
     const sceneSubjects = [
-      // new GeneralLights(bufferScene),
+      new GeneralLights(bufferScene),
       new Terrain(bufferScene, terrainDimensions),
-      // new Water(scene, camera, terrainDimensions, {
-      //  DPR,
-      //  width: screenDimensions.width,
-      //  height: screenDimensions.height,
-      // }),
-      // new Rock(bufferScene),
-      // new Fish(bufferScene),
+      new Water(scene, camera, terrainDimensions, {
+        DPR,
+        width: screenDimensions.width,
+        height: screenDimensions.height,
+      }),
+      new Rock(bufferScene),
+      new Fish(bufferScene),
     ];
 
     return sceneSubjects;
@@ -133,11 +127,10 @@ function Helper(canvas) {
     const deltaTime = clock.getDelta();
 
 
-    camera.position.x += ( mouseX - camera.position.x ) * .05;
-    camera.position.y += ( mouseY - camera.position.y ) * .05;
+    camera.position.x += ( mouseX - camera.position.x ) * .15;
+    camera.position.y += ( mouseY - camera.position.y ) * .15;
 
-    camera.lookAt(camParams.lookat[0], camParams.lookat[1],
-        camParams.lookat[2]);
+    camera.lookAt( camParams.lookat[1], camParams.lookat[1], camParams.lookat[0] );
 
     renderer.clear();
 
@@ -192,12 +185,10 @@ function Helper(canvas) {
   this.onDocumentMouseMove = function( event ) {
     const {width, height} = canvas;
 
-    mouseX = camParams.default[0] - camParams.range[0] / 2 + (event.clientX /
-          width * camParams.range[0]);
-    mouseY = camParams.default[1] + camParams.range[1] / 2 - (event.clientY /
-          height * camParams.range[1]);
+    mouseX = camParams.default[0] - camParams.range[0] / 2 + (event.clientX / width * camParams.range[0]);
+    mouseY = camParams.default[1] + camParams.range[1] / 2 - (event.clientY / height * camParams.range[1]);
   };
 };
 
 
-export default Helper;
+export default SceneManager;
