@@ -21,7 +21,7 @@ function Water(scene, camera, terrainDimensions, screenDimensions) {
     vertexShader: vert,
     fragmentShader: frag,
     transparent: true,
-    depthWrite: false,
+    depthWrite: true,
   });
 
   const mesh = new THREE.Mesh(
@@ -37,7 +37,7 @@ function Water(scene, camera, terrainDimensions, screenDimensions) {
   this.update = function(deltaTime, colorTarget, depthTarget) {
     material.uniforms.tDepth.value = depthTarget.texture;
     material.uniforms.tEnv.value = colorTarget.texture;
-    material.uniforms.uTime.value += deltaTime + 0.004;
+    material.uniforms.uTime.value += deltaTime + 0.0045;
   };
 
   this.onResize = function(screenDimensions) {

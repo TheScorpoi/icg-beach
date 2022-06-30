@@ -10,7 +10,7 @@ function GeneralLights(scene) {
   // const hemiLightHelper = new THREE.HemisphereLightHelper( hemiLight, 10 );
   // scene.add( hemiLightHelper );
 
-  const dirLight = new THREE.DirectionalLight( 0xffffff, 0.5 );
+  const dirLight = new THREE.DirectionalLight( 0xffffff, 0.65);
   dirLight.color.setHSL( 0.1, 0.0, 1 );
   dirLight.position.set( 1, 1.5, -0.7 );
   dirLight.position.multiplyScalar( 30 );

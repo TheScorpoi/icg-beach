@@ -59,7 +59,13 @@ function Rock(scene, surface) {
     addToScene(mesh, [0, -12, 50], [1, 5, 1], 5);
     addToScene(mesh, [10, -15, 75], [1, 5, 1], 5);
     addToScene(mesh, [27, -11, 48], [5, 5, 1], 6);
+    
+    addToScene(mesh, [-165, -12, 48], [1, 4, 2], 23);
+    addToScene(mesh, [-130, -12, 70], [3, 2, 1], 7);
+    addToScene(mesh, [-100, -10, 48], [1, 4, 2], 6);
+    addToScene(mesh, [-80, -13, 70], [3, 3, 0.5], 8);
 
+    addToScene(mesh, [-110, -6, 5], [0.5, 0.5, 0.5], 9);
   
   }, undefined, function (error) {
     console.error( error );

@@ -5,6 +5,10 @@ import Terrain from './subjects/Terrain';
 import Water from './subjects/Water';
 import Fish from './subjects/Fish';
 
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
+import { TrackballControls } from 'three/examples/jsm/controls/TrackballControls'
+
+
 function SceneManager(canvas) {
   const clock = new THREE.Clock();
 
@@ -39,6 +43,13 @@ function SceneManager(canvas) {
   materialDepth.depthPacking = THREE.RGBADepthPacking;
   materialDepth.blending = THREE.NoBlending;
 
+  const orbitControls = new OrbitControls(camera, renderer.domElement)
+  orbitControls.enableDamping = true
+  orbitControls.dampingFactor = 0.25
+
+  // const trackballControls = new TrackballControls(camera, renderer.domElement)
+  // trackballControls.enableDamping = true
+  // trackballControls.dampingFactor = 0.25
 
   function buildScene() {
     const scene = new THREE.Scene();
@@ -77,7 +88,7 @@ function SceneManager(canvas) {
 
 
     camera.position.set(camParams.default[0], camParams.default[0], camParams.default[2]);
-    camera.lookAt(new THREE.Vector3(camParams.lookat[0], camParams.lookat[1], camParams.lookat[2]));
+    //camera.lookAt(new THREE.Vector3(camParams.lookat[0], camParams.lookat[1], camParams.lookat[2]));
 
     return camera;
   }
@@ -161,10 +172,6 @@ function SceneManager(canvas) {
     screenDimensions.width = width;
     screenDimensions.height = height;
 
-    camera.aspect = width / height;
-    camera.fov = Math.min(4 * height / Math.pow(width, 0.7), 40);
-    camera.updateProjectionMatrix();
-
     renderer.setSize(width, height);
     const dpr = Math.min(renderer.getPixelRatio(), 2);
     // const dpr = 1;
@@ -182,12 +189,6 @@ function SceneManager(canvas) {
     }
   };
 
-  this.onDocumentMouseMove = function( event ) {
-    const {width, height} = canvas;
-
-    //mouseX = camParams.default[0] - camParams.range[0] / 2 + (event.clientX / width * camParams.range[0]);
-    //mouseY = camParams.default[1] + camParams.range[1] / 2 - (event.clientY / height * camParams.range[1]);
-  };
 };
 
 
