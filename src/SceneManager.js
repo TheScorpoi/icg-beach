@@ -8,11 +8,14 @@ import Sky from './subjects/Sky';
 import Tractor from './subjects/Tractor';
 import Corals from './subjects/Corals';
 
-
+import Stats from 'three/examples/jsm/libs/stats.module'
 import { TrackballControls } from 'three/examples/jsm/controls/TrackballControls'
 
 function SceneManager(canvas) {
   const clock = new THREE.Clock();
+
+  const stats = Stats()
+  document.body.appendChild(stats.dom)
 
   const screenDimensions = {
     width: canvas.width,
@@ -144,6 +147,8 @@ function SceneManager(canvas) {
     const deltaTime = clock.getDelta();
 
     trackballControls.update();
+
+    stats.update()
 
     renderer.clear();
 
