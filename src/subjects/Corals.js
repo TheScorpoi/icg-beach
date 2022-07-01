@@ -55,7 +55,7 @@ function Corals(scene) {
         side: THREE.DoubleSide
     });
         
-    const instanceNumber = 2000;
+    const instanceNumber = 3500;
     const dummy = new THREE.Object3D();
 
     createCorals(20, -9, 60);
@@ -69,10 +69,12 @@ function Corals(scene) {
     createCorals(-135, -2, 30);
     createCorals(-140, -2, 30);
     createCorals(-130, -2, 40);
+    createCorals(-130, -2, 45);
     createCorals(-125, -2, 40);
     createCorals(-125, -2, 30);
     createCorals(-125, -2, 25);
     createCorals(-125, -2, 20);
+    createCorals(-128, -1, 23);
 
     function createCorals(posX, posY, posZ) {
         const geometry = new THREE.PlaneGeometry( 0.1, 6, 4, 1 );

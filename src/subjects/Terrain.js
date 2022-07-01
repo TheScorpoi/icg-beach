@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import 'simplex-noise';
 import vert from '../shaders/Sand.vert';
 import frag from '../shaders/Sand.frag';
+import { RGB_ETC1_Format } from 'three';
 
 
 function Terrain(scene, terrainDimensions) {
@@ -68,6 +69,8 @@ function Terrain(scene, terrainDimensions) {
   addSunshade(0xff00ff, -160, 17, -50) //pink
   addSunshade(0x47C606, -195, 17, -25) // green
 
+  addSunshade(0xff0000, -165, 17, -10) // green
+
 
   addBorderLaterais(95.1, -12, -20, 23, 266);
   addBorderLaterais(-235.2, -12, -20, 23, 266);
@@ -81,7 +84,9 @@ function Terrain(scene, terrainDimensions) {
   addBorderFundo(-70, -23, -20, 267, 330);
 
   addBorderLateraisSand(95.1, -12, -20, 23, 266);
-  
+
+  addTriangleBorder(95, -3, -153);
+  addTriangleBorder(-234, -3, -153);
   
   function addBorderLaterais(posX, posY, posZ, width, height) {
     const textureHood = new THREE.TextureLoader().load('/images/madeira2.jpg');
@@ -129,8 +134,25 @@ function Terrain(scene, terrainDimensions) {
     scene.add(plane)
   }
 
+  function addTriangleBorder(posX, posY, posZ) {
+    var geom = new THREE.Geometry(100, 100, 100);
+    var v1 = new THREE.Vector3(0,0,0);
+    var v2 = new THREE.Vector3(0,28,0);
+    var v3 = new THREE.Vector3(180,0,0);
 
+    geom.vertices.push(v1);
+    geom.vertices.push(v2);
+    geom.vertices.push(v3);
 
+    geom.faces.push( new THREE.Face3( 0, 1, 2 ) );
+    geom.computeFaceNormals();
+
+    var mesh = new THREE.Mesh(geom, new THREE.MeshBasicMaterial({ color: "rgb(255, 254, 181)", side: THREE.DoubleSide }));
+    mesh.position.set(posX, posY, posZ);
+    mesh.rotation.y = -Math.PI / 2;
+    scene.add(mesh)
+  }
+  
   function addSunshade(color, x, y, z) {
     const group = new THREE.Group();
 
