@@ -33,7 +33,7 @@ function Terrain(scene, terrainDimensions) {
 
   mesh.position.set(-70, 6, -30);
 
-  const peak = 1.5;
+  const peak = 2;
   const smoothing = 12000 / terrainDimensions[1];
   const vertices = mesh.geometry.attributes.position.array;
 
@@ -47,7 +47,8 @@ function Terrain(scene, terrainDimensions) {
   mesh.geometry.attributes.position.needsUpdate = true;
   mesh.geometry.computeVertexNormals();
 
-  mesh.rotation.x = -Math.PI / 2.3;
+  //mesh.rotation.x = -Math.PI / 2.3;
+  mesh.rotation.x = -Math.PI / 2.22;
 
   mesh.castShadow = true;
   mesh.receiveShadow = true;
@@ -57,11 +58,78 @@ function Terrain(scene, terrainDimensions) {
 
   scene.add(mesh);
 
-  addSunshade(0xff0000, 70, 10, 0)
-  addSunshade(0x0000ff, 40, 16, -40)
-  addSunshade(0x00ff00, -40, 16, -40)
-  addSunshade(0xff0000, -100, 16, -40)
-  addSunshade(0xff0000, -75, 10, -10)
+  addSunshade(0xff0000, 70, 10, 0) // red
+  addSunshade(0x0000ff, 40, 16, -40) // blue
+  addSunshade(0x0000ff, 0, 10, -15) // blue
+  addSunshade(0x47C606, -40, 16, -40) // green
+  addSunshade(0xff0000, -100, 16, -40) // red
+  addSunshade(0xff0000, -75, 12, -10) // red
+  addSunshade(0xE97451, -130, 14, -30) // orange
+  addSunshade(0xff00ff, -160, 17, -50) //pink
+  addSunshade(0x47C606, -195, 17, -25) // green
+
+
+  addBorderLaterais(95.1, -12, -20, 23, 266);
+  addBorderLaterais(-235.2, -12, -20, 23, 266);
+
+  addBorderCentrais(-70, -12, 113, 23, 331);
+
+  addBorderCentrais(-70, -12, -153, 20, 331);
+  addBorderCentrais(-70, 0, -153, 20, 331);
+  addBorderCentrais(-70, 14, -153, 20, 331);
+
+  addBorderFundo(-70, -23, -20, 267, 330);
+
+  addBorderLateraisSand(95.1, -12, -20, 23, 266);
+  
+  
+  function addBorderLaterais(posX, posY, posZ, width, height) {
+    const textureHood = new THREE.TextureLoader().load('/images/madeira2.jpg');
+    const geometry = new THREE.PlaneGeometry(width, height)
+    const material = new THREE.MeshBasicMaterial({ map: textureHood, side: THREE.DoubleSide })
+    const plane = new THREE.Mesh(geometry, material)
+    plane.position.set(posX, posY, posZ)
+    plane.rotation.x = -Math.PI / 2;
+    plane.rotation.y = 1.6
+    scene.add(plane)
+  }
+
+  function addBorderCentrais(posX, posY, posZ, width, height) {
+    const textureHood = new THREE.TextureLoader().load('/images/madeira2.jpg');
+    const geometry = new THREE.PlaneGeometry(width, height)
+    const material = new THREE.MeshBasicMaterial({ map: textureHood, side: THREE.DoubleSide })
+    const plane = new THREE.Mesh(geometry, material)
+    plane.position.set(posX, posY, posZ)
+    plane.rotation.x = -Math.PI / 2;
+    plane.rotation.y = 1.575
+    plane.rotateX(Math.PI / 2)
+    scene.add(plane)
+  }
+
+  function addBorderFundo(posX, posY, posZ, width, height) {
+    const textureHood = new THREE.TextureLoader().load('/images/madeira2.jpg');
+    const geometry = new THREE.PlaneGeometry(width, height)
+    const material = new THREE.MeshBasicMaterial({ map: textureHood })
+    const plane = new THREE.Mesh(geometry, material)
+    plane.position.set(posX, posY, posZ)
+    plane.rotation.x = -6.275 ;
+    plane.rotation.y = 1.575
+    plane.rotateX(Math.PI / 2)
+    scene.add(plane)
+  }
+
+  function addBorderLateraisSand(posX, posY, posZ, width, height) {
+    const textureHood = new THREE.TextureLoader().load('/images/madeira2.jpg');
+    const geometry = new THREE.PlaneGeometry(width, height)
+    const material = new THREE.MeshBasicMaterial({ map: textureHood, side: THREE.DoubleSide })
+    const plane = new THREE.Mesh(geometry, material)
+    plane.position.set(posX, posY, posZ)
+    plane.rotation.x = -Math.PI / 2;
+    plane.rotation.y = 1.6
+    scene.add(plane)
+  }
+
+
 
   function addSunshade(color, x, y, z) {
     const group = new THREE.Group();
@@ -74,13 +142,24 @@ function Terrain(scene, terrainDimensions) {
     cone.receiveShadow = true;
     group.add(cone);
 
-    const geometry2 = new THREE.CylinderGeometry(0.5, 0.5, 9, 9);
+    const geometry2 = new THREE.CylinderGeometry(0.5, 0.5, 10, 9);
     const material2 = new THREE.MeshPhongMaterial({ color: 0x000000 });
     const cylinder = new THREE.Mesh(geometry2, material2);
     cylinder.position.set(x, y - 3, z);
     cylinder.castShadow = true;
     cylinder.receiveShadow = true;
     group.add(cylinder);
+
+    const texture = new THREE.TextureLoader().load( '/images/towel2.png' );
+    const geometry3 = new THREE.PlaneGeometry(6, 12);
+    const material3 = new THREE.MeshPhongMaterial({ map: texture });
+    const plane = new THREE.Mesh(geometry3, material3);
+
+    plane.position.set(x - 5, y - 6, z);
+    plane.rotation.x = -Math.PI / 2.22;
+    plane.castShadow = true;
+    plane.receiveShadow = true;
+    group.add(plane);
 
     scene.add(group);
   }

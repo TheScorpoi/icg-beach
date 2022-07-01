@@ -34,6 +34,10 @@ function GeneralLights(scene) {
   // const dirLightHeper = new THREE.DirectionalLightHelper( dirLight, 10 );
   // scene.add( dirLightHeper );
 
+
+  const dirLight2 = new THREE.DirectionalLight(0xffffff, 2.0);
+  dirLight2.position.set(-40, 50, -50);
+
   this.update = function(time) {
   };
 }

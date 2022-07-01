@@ -4,10 +4,12 @@ import Rock from './subjects/Rock';
 import Terrain from './subjects/Terrain';
 import Water from './subjects/Water';
 import Fish from './subjects/Fish';
+import Sky from './subjects/Sky';
+import Tractor from './subjects/Tractor';
+import Corals from './subjects/Corals';
 
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
+
 import { TrackballControls } from 'three/examples/jsm/controls/TrackballControls'
-
 
 function SceneManager(canvas) {
   const clock = new THREE.Clock();
@@ -17,11 +19,11 @@ function SceneManager(canvas) {
     height: canvas.height,
   };
 
-  //const DPR = (window.devicePixelRatio) ? Math.min(window.devicePixelRatio, 2) : 1;
-  const DPR = 2;
+  const DPR = (window.devicePixelRatio) ? Math.min(window.devicePixelRatio, 2) : 1;
+  //const DPR = 2;
 
   const camParams = {
-    default: [100, 200, 300],
+    default: [100, 100, 100],
     range: [200, 200],
     lookat: [10, 0, 100],
   };
@@ -43,13 +45,7 @@ function SceneManager(canvas) {
   materialDepth.depthPacking = THREE.RGBADepthPacking;
   materialDepth.blending = THREE.NoBlending;
 
-  const orbitControls = new OrbitControls(camera, renderer.domElement)
-  orbitControls.enableDamping = true
-  orbitControls.dampingFactor = 0.25
-
-  // const trackballControls = new TrackballControls(camera, renderer.domElement)
-  // trackballControls.enableDamping = true
-  // trackballControls.dampingFactor = 0.25
+  const trackballControls = new TrackballControls(camera, renderer.domElement)
 
   function buildScene() {
     const scene = new THREE.Scene();
@@ -76,19 +72,8 @@ function SceneManager(canvas) {
   }
 
   function buildCamera({width, height}) {
-    const aspectRatio = width / height;
-    const fieldOfView = 100;
-    const nearPlane = 0.1;
-    const farPlane = 500;
-    const camera = new THREE.PerspectiveCamera(
-        fieldOfView,
-        aspectRatio,
-        nearPlane,
-        farPlane);
-
-
+    const camera = new THREE.PerspectiveCamera(70, width / height, 1, 1000);
     camera.position.set(camParams.default[0], camParams.default[0], camParams.default[2]);
-    //camera.lookAt(new THREE.Vector3(camParams.lookat[0], camParams.lookat[1], camParams.lookat[2]));
 
     return camera;
   }
@@ -104,6 +89,9 @@ function SceneManager(canvas) {
       }),
       new Rock(bufferScene),
       new Fish(bufferScene),
+      new Sky(bufferScene),
+      new Tractor(bufferScene),
+      new Corals(bufferScene),
     ];
 
     return sceneSubjects;
@@ -133,15 +121,29 @@ function SceneManager(canvas) {
     return {colorTarget, depthTarget};
   }
 
+  var D = false; var S = false; var A = false; var W = false;
+  document.addEventListener("keyup", onDocumentKeyUp, false);
+  function onDocumentKeyUp(event) {
+    switch (event.keyCode) {
+        case 68: //d
+            D = false;
+            break;
+        case 83: //s
+            S = false;
+            break;
+        case 65: //a
+            A = false;
+            break;
+        case 87: //w
+            W = false;
+            break;
+    }
+  }
+
   this.update = function() {
-    // const elapsedTime = clock.getElapsedTime();
     const deltaTime = clock.getDelta();
 
-
-    camera.position.x += ( mouseX - camera.position.x ) * .15;
-    camera.position.y += ( mouseY - camera.position.y ) * .15;
-
-    camera.lookAt( camParams.lookat[1], camParams.lookat[1], camParams.lookat[0] );
+    trackballControls.update();
 
     renderer.clear();
 
@@ -151,7 +153,6 @@ function SceneManager(canvas) {
 
     renderer.setRenderTarget( colorTarget );
     renderer.render(bufferScene, camera);
-
 
     // render buffer scene for water depth texture
     bufferScene.overrideMaterial = materialDepth;

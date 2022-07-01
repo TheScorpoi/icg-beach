@@ -9,11 +9,11 @@
     "build": "rollup --config",
     "dev": "rollup -mw --config",
     "predeploy": "yarn run build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d ./dist"
   },
   "dependencies": {
     "simplex-noise": "^2.4.0",
-    "three": "^0.116.1"
+    "three": "^0.120.0"
   },
   "devDependencies": {
     "@babel/core": "^7.9.6",
