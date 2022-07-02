@@ -17,8 +17,8 @@ function GeneralLights(scene) {
   scene.add( dirLight );
 
   dirLight.castShadow = true;
-  dirLight.shadow.mapSize.width = 1024;
-  dirLight.shadow.mapSize.height = 1024;
+  dirLight.shadow.mapSize.width = 2048;
+  dirLight.shadow.mapSize.height = 2048;
   dirLight.shadow.radius = 12.0;
 
   const d = 90;
@@ -31,8 +31,9 @@ function GeneralLights(scene) {
   dirLight.shadow.camera.far = 400;
   dirLight.shadow.bias = 0.001;
 
-  // const dirLightHeper = new THREE.DirectionalLightHelper( dirLight, 10 );
-  // scene.add( dirLightHeper );
+  const dirLightHeper =new THREE.DirectionalLight( 0xffffff, 0.75);
+  dirLightHeper.position.set( 0, 30, -100 );
+  scene.add(dirLightHeper);
 
 
   const dirLight2 = new THREE.DirectionalLight(0xffffff, 2.0);

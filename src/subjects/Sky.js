@@ -14,7 +14,7 @@ function Sky(scene) {
     const smokeGeo = new THREE.PlaneBufferGeometry(60, 60);
     let smokeMaterial = new THREE.MeshPhongMaterial({
         map: texture,
-        transparent: true,
+      transparent: true,
     });
 
       for (let p = 0, l = 1; p < l; p++) {
@@ -31,9 +31,10 @@ function Sky(scene) {
       }
     });
 
+  var flag = true;
   this.update = function (deltaTime) {
     [].forEach.call(smokeParticles, sp => {
-      sp.position.x += deltaTime * 2;
+        sp.position.x += deltaTime * 2;
     });
   }
 }
