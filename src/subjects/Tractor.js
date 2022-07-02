@@ -155,7 +155,6 @@ function Tractor(scene) {
         correnteDir.rotation.y += 0.86;
 
         var alfaia = scene.getObjectByName('alfaia');
-        console.log(alfaia.position);
         if (A) alfaia.rotation.z += 0.01;
         if (D) alfaia.rotation.z -= 0.01;
 
