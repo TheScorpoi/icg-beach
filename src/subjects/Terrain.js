@@ -71,6 +71,14 @@ function Terrain(scene, terrainDimensions) {
 
   addSunshade(0xff0000, -165, 17, -10) // green
 
+  addSunshade(0xff0000, -212, 19, -50) // red
+  addSunshade(0x0000ff, -179, 19, -75) // blue
+  addSunshade(0x00ff00, -130, 19, -66) // green
+  addSunshade(0xE97451, -70, 18, -60) // orange
+  addSunshade(0xff00ff, 0, 18, -50) // pink
+  addSunshade(0xE97451, 78, 18, -33) // orange
+  
+  addSunshade(0xff00ff, 65, 18, -55) // pink
 
   addBorderLaterais(95.1, -12, -20, 23, 266);
   addBorderLaterais(-235.2, -12, -20, 23, 266);
