@@ -124,25 +124,6 @@ function SceneManager(canvas) {
     return {colorTarget, depthTarget};
   }
 
-  var D = false; var S = false; var A = false; var W = false;
-  document.addEventListener("keyup", onDocumentKeyUp, false);
-  function onDocumentKeyUp(event) {
-    switch (event.keyCode) {
-        case 68: //d
-            D = false;
-            break;
-        case 83: //s
-            S = false;
-            break;
-        case 65: //a
-            A = false;
-            break;
-        case 87: //w
-            W = false;
-            break;
-    }
-  }
-
   this.update = function() {
     const deltaTime = clock.getDelta();
 
