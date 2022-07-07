@@ -6,13 +6,13 @@ import vert from '../shaders/Water.vert';
 function Water(scene, camera, terrainDimensions, screenDimensions) {
   const material = new THREE.ShaderMaterial( {
     uniforms: {
-      tDepth: {value: null},
-      tEnv: {value: null},
+      espuma: {value: null},
+      agua: {value: null},
       screenSize: new THREE.Uniform([
         screenDimensions.width * screenDimensions.DPR,
         screenDimensions.height * screenDimensions.DPR,
       ]),
-      uTime: {
+      ondas: {
         value: 0.0,
       },
       cameraNear: {value: camera.near},
@@ -37,9 +37,9 @@ function Water(scene, camera, terrainDimensions, screenDimensions) {
   let MARE_CHEIA = false;
 
   this.update = function(deltaTime, colorTarget, depthTarget) {
-    material.uniforms.tDepth.value = depthTarget.texture;
-    material.uniforms.tEnv.value = colorTarget.texture;
-    material.uniforms.uTime.value += deltaTime + 0.0045;
+    material.uniforms.espuma.value = depthTarget.texture;
+    material.uniforms.agua.value = colorTarget.texture;
+    material.uniforms.ondas.value += deltaTime + 0.0045; //fazer as ondas
     // Low and high the water level animation
     if (mesh.position.y <= 2 && !MARE_CHEIA) {
       // console.log(mesh.position.y)

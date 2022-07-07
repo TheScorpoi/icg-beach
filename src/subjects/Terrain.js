@@ -2,8 +2,6 @@ import * as THREE from 'three';
 import 'simplex-noise';
 import vert from '../shaders/Sand.vert';
 import frag from '../shaders/Sand.frag';
-import { RGB_ETC1_Format } from 'three';
-
 
 function Terrain(scene, terrainDimensions) {
   const texture = new THREE.TextureLoader().load( '/images/cartoon-sand.png' );

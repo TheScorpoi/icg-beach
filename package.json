@@ -1,8 +1,8 @@
 {
-  "name": "three",
+  "name": "icg-beach",
   "version": "1.0.0",
   "main": "index.js",
-  "author": "Clay Tercek",
+  "author": "Pedro Sobral",
   "license": "MIT",
   "homepage": "https://thescorpoi.github.io/icg-beach/",
   "scripts": {
